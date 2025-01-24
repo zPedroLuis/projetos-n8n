@@ -1,0 +1,845 @@
+{
+  "name": "Agente imobiliario",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Solicitação de Informações sobre Imóveis",
+        "formDescription": "Preencha os campos abaixo para que possamos entender melhor suas necessidades e entrar em contato com você sobre as opções de imóveis disponíveis.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Nome Completo",
+              "placeholder": "nome",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "E-mail",
+              "placeholder": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Tipo de imóvel de interesse",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Apartamento"
+                  },
+                  {
+                    "option": "Casa"
+                  },
+                  {
+                    "option": "Comercial"
+                  },
+                  {
+                    "option": "Rural"
+                  },
+                  {
+                    "option": "Terreno"
+                  },
+                  {
+                    "option": "Outro"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -40,
+        -100
+      ],
+      "id": "fabaff81-389a-44c1-8076-d65dedb56eb5",
+      "name": "Formulário",
+      "webhookId": "d9c0c61c-6677-4d46-ab40-271cd6931526"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "13Qy2zrAB054UTcl2Yxq8s7GcIYcSCt0tfhb1bbf0SMA",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13Qy2zrAB054UTcl2Yxq8s7GcIYcSCt0tfhb1bbf0SMA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Página1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13Qy2zrAB054UTcl2Yxq8s7GcIYcSCt0tfhb1bbf0SMA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "E-mail": "={{ $json['E-mail'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "E-mail",
+              "displayName": "E-mail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tipo de imóvel",
+              "displayName": "Tipo de imóvel",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Objetivo principal",
+              "displayName": "Objetivo principal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Localização",
+              "displayName": "Localização",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Faixa de preço",
+              "displayName": "Faixa de preço",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        580,
+        -100
+      ],
+      "id": "40914aa1-2928-4143-8030-c6b4547955ea",
+      "name": "Leads",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vgronh0Qpl7fx3Yx",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2fc05e13-490d-4a54-bc55-29e6ddcbb82b",
+              "name": "Nome",
+              "value": "={{ $('Formulário').item.json['Nome Completo'] }}",
+              "type": "string"
+            },
+            {
+              "id": "8acd25fe-41e4-47fc-96f8-1b1cf2bb4d56",
+              "name": "E-mail",
+              "value": "={{ $('Formulário').item.json['E-mail'] }}",
+              "type": "string"
+            },
+            {
+              "id": "db1d9455-162e-4fb9-a1a1-c0a5b7798400",
+              "name": "Tipo de imóvel",
+              "value": "={{ $('Formulário').item.json['Tipo de imóvel de interesse'] }}",
+              "type": "string"
+            },
+            {
+              "id": "4c2726c3-354a-42d6-a169-ba1ec4c237c1",
+              "name": "Objetivo principal",
+              "value": "={{ $json['Qual seu objetivo principal?'] }}",
+              "type": "string"
+            },
+            {
+              "id": "6a9f2eda-4b63-4f28-b6e6-1b19c86a9804",
+              "name": "Localização",
+              "value": "={{ $json['Localização (Cidade e bairro de interesse)'] }}",
+              "type": "string"
+            },
+            {
+              "id": "6e5be00f-d067-40e3-95f3-c77f4328c67c",
+              "name": "Faixa de preço",
+              "value": "={{ $json['Faixa de preço'] }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        360,
+        -100
+      ],
+      "id": "341cae2a-9552-41c3-ab60-488731611960",
+      "name": "Otimiza dados"
+    },
+    {
+      "parameters": {
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Qual seu objetivo principal?",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Comprar um imóvel"
+                  },
+                  {
+                    "option": "Alugar um imóvel"
+                  },
+                  {
+                    "option": "Outros"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Localização (Cidade e bairro de interesse)",
+              "placeholder": "local"
+            },
+            {
+              "fieldLabel": "Faixa de preço",
+              "fieldType": "number",
+              "placeholder": "preco"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -100
+      ],
+      "id": "b642e480-b3ee-4167-9c4e-92bbef3ab0b9",
+      "name": "Form",
+      "webhookId": "a6253a91-6b72-473f-9566-be857ebc3ab0"
+    },
+    {
+      "parameters": {
+        "url": "https://api.jsonbin.io/v3/qs/678e362de41b4d34e47ba177",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Status",
+              "value": "Awesome"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        780,
+        -100
+      ],
+      "id": "a3548f1f-6ae5-4d2e-8a10-dd835af9c2ed",
+      "name": "Requisição"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "record.imoveis",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        -100
+      ],
+      "id": "bf579ad9-d791-49f1-99c0-6388605d707b",
+      "name": "Divide json"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a7c0c08e-cd20-4f77-8fb7-c660e30061b6",
+              "leftValue": "={{ $json['record.imoveis'].localizacao }}",
+              "rightValue": "={{ $('Leads').item.json['Localização'] }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        1200,
+        -100
+      ],
+      "id": "fa8c9030-c03b-4c71-abde-b16d9ec0f5d6",
+      "name": "Filtra localidade",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "29392816-f4df-4b45-bacf-719217f0cc41",
+              "name": "record.imoveis",
+              "value": "={{ $json['record.imoveis'] }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1460,
+        -100
+      ],
+      "id": "5e02dfe2-13ff-4208-aeb8-78fc4b7218c1",
+      "name": "Limpa dados"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Leads').item.json['E-mail'] }}",
+        "subject": "=Imoveis",
+        "emailType": "text",
+        "message": "={{ `Imóveis disponiveis de acordo com suas preferências!\\n`}}\n{{ $('If').item.json.record.imoveis.tipo }}\n{{ $('If').item.json.record.imoveis.localizacao }}\n{{ `R$`+$('If').item.json.record.imoveis.preco+`,00` }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2720,
+        -200
+      ],
+      "id": "c9c46685-553f-43a6-900d-f0b9973daf8c",
+      "name": "Envia e-mail para o lead",
+      "webhookId": "2d36a09a-a579-4746-9bd5-39a395892100",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "sEQYGbySlTxf7x9A",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3886350a-1983-43aa-bfbe-0b5233889481",
+              "leftValue": "={{ $json.record.imoveis }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1680,
+        -100
+      ],
+      "id": "4b72955d-c855-4cf3-be40-de087063f1e7",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "51f82334-9581-47f7-99eb-65ffeaa47a18",
+              "name": "Qualidade",
+              "value": "Alta",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2120,
+        -200
+      ],
+      "id": "e5665c35-3e37-403f-9dc8-838b397c9e70",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9444fcb0-cf7c-464d-9a30-4cbf45ef9174",
+              "name": "Qualidade",
+              "value": "Baixa",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2120,
+        0
+      ],
+      "id": "e9331de5-1866-42d6-b0a2-c4692f2626b9",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "13Qy2zrAB054UTcl2Yxq8s7GcIYcSCt0tfhb1bbf0SMA",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13Qy2zrAB054UTcl2Yxq8s7GcIYcSCt0tfhb1bbf0SMA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Página1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13Qy2zrAB054UTcl2Yxq8s7GcIYcSCt0tfhb1bbf0SMA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "E-mail": "={{ $json['E-mail'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "E-mail",
+              "displayName": "E-mail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tipo de imóvel",
+              "displayName": "Tipo de imóvel",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Objetivo principal",
+              "displayName": "Objetivo principal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Localização",
+              "displayName": "Localização",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Faixa de preço",
+              "displayName": "Faixa de preço",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Qualidade",
+              "displayName": "Qualidade",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2460,
+        0
+      ],
+      "id": "ce83a20f-966d-4c16-9535-be11bb72ee4b",
+      "name": "Lead frio",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vgronh0Qpl7fx3Yx",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "13Qy2zrAB054UTcl2Yxq8s7GcIYcSCt0tfhb1bbf0SMA",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13Qy2zrAB054UTcl2Yxq8s7GcIYcSCt0tfhb1bbf0SMA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Página1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13Qy2zrAB054UTcl2Yxq8s7GcIYcSCt0tfhb1bbf0SMA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "E-mail": "={{ $json['E-mail'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "E-mail",
+              "displayName": "E-mail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Tipo de imóvel",
+              "displayName": "Tipo de imóvel",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Objetivo principal",
+              "displayName": "Objetivo principal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Localização",
+              "displayName": "Localização",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Faixa de preço",
+              "displayName": "Faixa de preço",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Qualidade",
+              "displayName": "Qualidade",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2460,
+        -200
+      ],
+      "id": "64b0b36a-4472-436e-b0a3-9fe8e026f336",
+      "name": "Lead quente",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vgronh0Qpl7fx3Yx",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Formulário": {
+      "main": [
+        [
+          {
+            "node": "Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leads": {
+      "main": [
+        [
+          {
+            "node": "Requisição",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Otimiza dados": {
+      "main": [
+        [
+          {
+            "node": "Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Form": {
+      "main": [
+        [
+          {
+            "node": "Otimiza dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Requisição": {
+      "main": [
+        [
+          {
+            "node": "Divide json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Divide json": {
+      "main": [
+        [
+          {
+            "node": "Filtra localidade",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtra localidade": {
+      "main": [
+        [
+          {
+            "node": "Limpa dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limpa dados": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Lead quente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Lead frio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead quente": {
+      "main": [
+        [
+          {
+            "node": "Envia e-mail para o lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "00db8c53-c438-4371-91a6-213be5f04fc8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6ffb51b58ffb01eac3ce676de271c03d1e836982bc984ba3b966539b3fdaafbb"
+  },
+  "id": "v5ATAU4dbuzwldZk",
+  "tags": []
+}
